@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <title>WAIC Quick Draw</title>
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+    <link rel="stylesheet" href="/public/styles.css">
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="row">
+        <div class="column"><a class="nav-link" href="https://www.westernuai.com/">our site</a></div>
+        <div class="column"><a class="nav-link" href="https://www.facebook.com/westernuai/">facebook</a></div>
+        <div class="column"><a class="nav-link" href="https://github.com/WesternAI/intro-to-neural-networks">github</a></div>
+      </div>
+    </nav>
+    <div id="container" class="container">
+      <h1 class="hero">Welcome to the Western AI Collective's Quick Draw</h1>
+      <p class="description">I know what
+        <b><i>
+          flamingos,
+          cakes,
+          campfires,
+          angels,
+          palm trees,
+          remote controls,
+          rhinoceros,
+          The Eiffel Towers,
+          The Mona Lisas,
+          wine bottles,
+          hot air balloons,
+          skateboards,
+          maps,
+          underwears,
+        </i></b>
+        and
+        <b><i>
+          roller coasters
+        </i></b>
+        are.
+      </p>
+
+      <canvas id="draw-space" width="280" height="280"></canvas>
+
+      <div class="button-container">
+        <a class="button" id="clear-button">Clear</a>
+        <a class="button" id="submit-button">Submit</a>
+      </div>
+
+      <br>
+      
+      <img id="display-img" height="28px", width="28px">
+
+      <p id="prediction-text"></p>
+
+      
+    </div>
+
+    <footer>
+      <p class="footer-text">made by <a href="https://github.com/jrobchin">jason chin</a></p>
+    </footer>
+
+    <script src="/public/script.js"></script>
+  </body>
+</html>
