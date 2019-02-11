@@ -17,7 +17,7 @@ def load_model():
     # pre-trained on ImageNet and provided by Keras, but you can
     # substitute in your own networks just as easily)
     global model
-    model = keras.models.load_model(os.path.join(os.getcwd(), 'net4.h5'))
+    model = keras.models.load_model(os.path.join(app.root_path, 'net4.h5'))
     model._make_predict_function()
 
 load_model()
