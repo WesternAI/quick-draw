@@ -11,7 +11,6 @@ from tensorflow import keras
 keras.backend.clear_session()
 
 model = None
-
 def load_model():
     # load the pre-trained Keras model (here we are using a model
     # pre-trained on ImageNet and provided by Keras, but you can
@@ -19,6 +18,8 @@ def load_model():
     global model
     model = keras.models.load_model('./net4.h5')
     model._make_predict_function()
+
+load_model()
 
 # Serve static files
 @app.route("/public/<path:path>")
@@ -63,9 +64,3 @@ def predict():
 
     ret = json.dumps({'conf': str(predictions.max() * 100)[:4], 'class': classes[np.argmax(predictions)]})
     return ret
-
-if __name__ == "__main__":
-    print(("* Loading Keras model and Flask starting server..."
-        "please wait until server has fully started"))
-    load_model()
-    app.run(debug=True)
