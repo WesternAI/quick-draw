@@ -3,6 +3,7 @@ import base64
 from PIL import Image
 import io
 import numpy as np
+import os
 
 from flask import Flask, request, send_from_directory, send_file, json
 app = Flask(__name__)
@@ -16,7 +17,7 @@ def load_model():
     # pre-trained on ImageNet and provided by Keras, but you can
     # substitute in your own networks just as easily)
     global model
-    model = keras.models.load_model('./net4.h5')
+    model = keras.models.load_model(os.path.join(os.getcwd(), 'net4.h5'))
     model._make_predict_function()
 
 load_model()
