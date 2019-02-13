@@ -12,6 +12,7 @@ from tensorflow import keras
 keras.backend.clear_session()
 
 model = None
+@app.before_first_request
 def load_model():
     # load the pre-trained Keras model (here we are using a model
     # pre-trained on ImageNet and provided by Keras, but you can
@@ -19,8 +20,6 @@ def load_model():
     global model
     model = keras.models.load_model(os.path.join(app.root_path, 'net4.h5'))
     model._make_predict_function()
-
-load_model()
 
 # Serve static files
 @app.route("/public/<path:path>")

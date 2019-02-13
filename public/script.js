@@ -81,30 +81,58 @@ function showPrediction(conf, cls) {
   predictionText.innerHTML = `I'm ${conf}% sure it's an <b>${cls}</b>.`;
 }
 
+// DRAW FUNCTIONS
+function handleStartDrawing(e) {
+  console.log(e);
+  paint = true;
+  if (event.type == "mousedown") {
+    addClick(e.offsetX, e.offsetY);
+  } else if (event.type == "touchstart") {
+    let rect = e.target.getBoundingClientRect();
+    let x = e.targetTouches[0].pageX - rect.left;
+    let y = e.targetTouches[0].pageY - rect.top;
+    addClick(x, y);
+  } else {
+    console.error(`Event type: ${event.type} not supported.`);
+  }
+  redraw();
+}
+
+function handleDrawing(e) {
+  if(paint){
+    if (event.type == "mousemove") {
+      addClick(e.offsetX, e.offsetY, true);
+    } else if (event.type == "touchmove") {
+      let rect = e.target.getBoundingClientRect();
+      let x = e.targetTouches[0].pageX - rect.left;
+      let y = e.targetTouches[0].pageY - rect.top;
+      addClick(x, y, true);
+    } else {
+      console.error(`Event type: ${event.type} not supported.`);
+    }
+    redraw();
+  }
+}
+
+function handleStopDrawing(e) {
+  paint = false;
+}
+
 window.onload = () => {
   context = document.getElementById('draw-space').getContext("2d");
 
   canvas = document.getElementById('draw-space');
-  canvas.addEventListener('mousedown', (e) => {
-    paint = true;
-    addClick(e.offsetX, e.offsetY);
-    redraw();
-  });
+  canvas.addEventListener('mousedown', handleStartDrawing);
+  canvas.addEventListener('touchstart', handleStartDrawing);
 
-  canvas.addEventListener('mousemove', (e) => {
-    if(paint){
-      addClick(e.offsetX, e.offsetY, true);
-      redraw();
-    }
-  });
+  canvas.addEventListener('mousemove', handleDrawing);
+  canvas.addEventListener('touchmove', handleDrawing);
 
-  canvas.addEventListener('mouseup', (e) => {
-    paint = false;
-  });
+  canvas.addEventListener('mouseup', handleStopDrawing);
+  canvas.addEventListener('touchend', handleStopDrawing);
 
-  canvas.addEventListener('mouseleave', (e) => {
-    paint = false;
-  });
+  canvas.addEventListener('mouseleave', handleStopDrawing);
+  canvas.addEventListener('touchcancel', handleStopDrawing);
 
   let clearButton = document.getElementById('clear-button');
   clearButton.addEventListener('click', () => {
